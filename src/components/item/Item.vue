@@ -1,15 +1,34 @@
 <template>
   <div>
-    <v-text-field label="Name" v-model="item.name" />
-    <v-text-field label="Description" v-model="item.description" />
-    <v-switch label="Require Attunement" v-model="item.reqAttune"></v-switch>
+    <v-text-field color="primary" label="Name" v-model="item.name" />
     <v-text-field
+      color="primary"
+      label="Description"
+      v-model="item.description"
+    />
+    <v-switch
+      color="primary"
+      label="Require Attunement"
+      v-model="item.reqAttune"
+    ></v-switch>
+    <v-text-field
+      color="primary"
       label="Attune Requirement"
       v-model="item.attuneRequirements"
     />
-    <v-select label="Rarity" v-model="item.rarity" :items="rarities"></v-select>
-    <v-switch label="Is Weapon" v-model="item.isWeapon"></v-switch>
+    <v-select
+      color="primary"
+      label="Rarity"
+      v-model="item.rarity"
+      :items="rarities"
+    ></v-select>
+    <v-switch
+      color="primary"
+      label="Is Weapon"
+      v-model="item.isWeapon"
+    ></v-switch>
     <v-autocomplete
+      color="primary"
       label="Weapon Type"
       v-model="item.weaponType"
       :items="weaponTypes"
