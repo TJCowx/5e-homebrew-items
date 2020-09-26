@@ -13,6 +13,7 @@
         color="primary"
         label="Item Type"
         v-model="item.itemType"
+        @change="changeItemType"
         :items="itemTypes"
         :rules="reqRules"
       ></v-select>
@@ -64,6 +65,35 @@
       :items="armourTypes"
       v-show="item.itemType === 'Armour'"
     ></v-autocomplete>
+    <div class="action-container">
+      <div class="actions-left">
+        <v-btn color="primary" @click="loadExample" dark>Load Example</v-btn>
+      </div>
+      <div class="actions-right">
+        <v-btn color="primary" @click="importConfig" dark>Import</v-btn>
+        <input
+          ref="uploader"
+          style="display: none"
+          type="file"
+          accept="application/JSON"
+          @change="onFileUpload"
+        />
+        <v-btn
+          color="primary"
+          style="margin-left: 8px"
+          @click="exportConfig"
+          dark
+          >Export</v-btn
+        >
+        <v-btn
+          color="primary"
+          style="margin-left: 8px"
+          @click="exportAsImage"
+          dark
+          >Save As Image</v-btn
+        >
+      </div>
+    </div>
     <StatBlock :item="item" />
   </div>
 </template>
@@ -148,13 +178,69 @@ export default {
       "Net",
     ],
   }),
-  watch: {
-    "item.itemType": function (newVal, oldVal) {
-      // When the item type changes, we want to make sure the subtype gets cleared out
-      if (newVal != oldVal) {
-        this.item.itemSubType = "";
-      }
+  methods: {
+    /** When the item type changes, the subtype needs to clear */
+    changeItemType() {
+      this.itemSubType = "";
     },
+    /** Exports the item config into a json format */
+    exportConfig() {
+      const fileName =
+        this.item.name != null
+          ? `${encodeURIComponent(this.item.name)}.json`
+          : "no_name.json";
+
+      // Setup the blob for download
+      const element = document.createElement("a");
+      const file = new Blob([JSON.stringify(this.item)], {
+        type: "application/json;charset=utf-8;",
+      });
+
+      element.href = URL.createObjectURL(file);
+      element.download = fileName;
+      document.body.appendChild(element);
+      element.click();
+    },
+    /** Imports a previously exported configuration */
+    importConfig() {
+      this.$refs.uploader.click();
+    },
+    /** Handles uploading a file and putting it in the item object */
+    onFileUpload(e) {
+      const fileReader = new FileReader();
+
+      fileReader.onload = (e) => {
+        try {
+          this.item = JSON.parse(e.target.result);
+        } catch (err) {
+          alert("Error Parsing File");
+          console.error(err);
+        }
+      };
+
+      fileReader.readAsText(e.target.files[0]);
+    },
+    /** Loads an example for the end user */
+    loadExample() {
+      this.item = {
+        name: "Flame Tongue",
+        reqAttune: true,
+        itemType: "Weapon",
+        attuneRequirements: "",
+        rarity: "Rare",
+        description:
+          "You can use a bonus action to speak this magic sword's " +
+          "command word, causing flames to erupt from the blade. These flames " +
+          "shed bright light in a 40-foot radius and dim light for an " +
+          "additional 40 feet. While the sword is ablaze, it deals an extra " +
+          "2d6 fire damage to any target it hits. The flames last until you " +
+          "use a bonus action to speak the command word again or until you " +
+          "drop or sheathe the sword.",
+      };
+
+      this.item.itemSubType = "Rapier";
+    },
+    exportAsImage() {},
   },
 };
 </script>
@@ -175,5 +261,20 @@ export default {
 
 .toggle-item {
   max-width: 30%;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+.actions-left {
+  display: flex;
+  justify-content: flex-start;
+}
+.actions-right {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
