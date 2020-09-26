@@ -2,7 +2,11 @@
   <div id="app">
     <v-app>
       <div>
-        <AppBar />
+        <AppBar v-on:toggle-drawer="updateDrawer" />
+        <v-navigation-drawer v-model="openDrawer" absolute temporary>
+          <NavList />
+          <v-footer absolute> Version {{ version }} </v-footer>
+        </v-navigation-drawer>
         <Item class="item-container" />
       </div>
     </v-app>
@@ -12,12 +16,24 @@
 <script>
 import AppBar from "./components/layout/AppBar.vue";
 import Item from "./components/item/Item.vue";
+import NavList from "./components/NavList.vue";
+import { version } from "../package.json";
 
 export default {
   name: "App",
   components: {
     AppBar,
     Item,
+    NavList,
+  },
+  data: () => ({
+    openDrawer: false,
+    version: version,
+  }),
+  methods: {
+    updateDrawer() {
+      this.openDrawer = !this.openDrawer;
+    },
   },
 };
 </script>
