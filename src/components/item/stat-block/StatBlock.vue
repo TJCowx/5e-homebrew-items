@@ -78,11 +78,20 @@ export default {
   padding-top: 8px;
   font-size: 14px;
   line-height: 1;
-  font-family: inherit !important;
+  /** The markdown editor will change the font if important isn't on it */
+  font-family: inherit;
 }
 
+/** Fixes large amounts of whitespace added by the markdown editor */
 .markdown-body::after,
 .markdown-body::before {
   display: none;
+}
+
+/** This is required to fix the large amount of whitespace gets added before a list */
+.markdown-body p,
+ul,
+ol {
+  margin-top: -30px !important;
 }
 </style>
