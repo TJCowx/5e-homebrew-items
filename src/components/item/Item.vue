@@ -94,12 +94,14 @@
         >
       </div>
     </div>
-    <StatBlock :item="item" />
+    <StatBlock id="statBlock" ref="statBlock" :item="item" />
   </div>
 </template>
 
 <script>
 import StatBlock from "./stat-block/StatBlock.vue";
+import html2canvas from "html2canvas";
+
 export default {
   name: "Item",
   components: { StatBlock },
@@ -240,7 +242,30 @@ export default {
 
       this.item.itemSubType = "Rapier";
     },
-    exportAsImage() {},
+    exportAsImage() {
+      const el = document.querySelector("#image-container");
+      html2canvas(el, {
+        backgroundColor: null,
+        width: el.clientWidth,
+        height: el.clientHeight,
+        scrollX: 0,
+        scrollY: 0,
+      }).then((canvas) => {
+        const fileName = `${this.item.name}.png`;
+        const uri = canvas.toDataURL("image/png", 1.0);
+        const link = document.createElement("a");
+
+        if (typeof link.download === "string") {
+          link.href = uri;
+          link.download = fileName;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          window.open(uri);
+        }
+      });
+    },
   },
 };
 </script>

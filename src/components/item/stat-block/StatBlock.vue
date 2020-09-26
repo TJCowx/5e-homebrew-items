@@ -1,28 +1,30 @@
 <template>
   <div class="stat-block-wrapper">
-    <StatBlockBorder />
-    <div class="content-container">
-      <div class="name accent-color">{{ item.name }}</div>
-      <span class="subtext">
-        {{ item.itemType }}
-        <span v-if="item.itemSubType.length > 0">
-          ({{ item.itemSubType }})
+    <div id="image-container">
+      <StatBlockBorder />
+      <div class="content-container">
+        <div class="name accent-color">{{ item.name }}</div>
+        <span class="subtext">
+          {{ item.itemType }}
+          <span v-if="item.itemSubType.length > 0">
+            ({{ item.itemSubType }})
+          </span>
+          , {{ item.rarity }}
+          <span v-if="item.reqAttune">
+            (requires attunement<span v-if="item.attuneRequirements.length > 0">
+              {{ item.attuneRequirements }}</span
+            >)
+          </span>
         </span>
-        , {{ item.rarity }}
-        <span v-if="item.reqAttune">
-          (requires attunement<span v-if="item.attuneRequirements.length > 0">
-            {{ item.attuneRequirements }}</span
-          >)
-        </span>
-      </span>
-      <hr class="line-break" />
+        <hr class="line-break" />
 
-      <markdown-it-vue-light
-        class="markdown-body description"
-        :content="item.description"
-      />
+        <markdown-it-vue-light
+          class="markdown-body description"
+          :content="item.description"
+        />
+      </div>
+      <StatBlockBorder />
     </div>
-    <StatBlockBorder />
   </div>
 </template>
 
