@@ -29,6 +29,8 @@
       color="primary"
       label="Description"
       v-model="item.description"
+      :hint="'Markdown Syntax: **Bold**, ~~Strikethrough~~, *Italics*, > Quote, - Bullet List'"
+      persistent-hint
       :rules="reqRules"
       :rows="1"
     />
