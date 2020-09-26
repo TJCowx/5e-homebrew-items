@@ -1,38 +1,60 @@
 <template>
   <div>
-    <v-text-field color="primary" label="Name" v-model="item.name" />
-    <v-text-field
+    <div class="row-container">
+      <v-text-field
+        class="basic-input"
+        color="primary"
+        label="Name"
+        v-model="item.name"
+        :rules="reqRules"
+      />
+      <v-select
+        class="basic-input"
+        color="primary"
+        label="Rarity"
+        v-model="item.rarity"
+        :items="rarities"
+        :rules="reqRules"
+      ></v-select>
+    </div>
+    <v-textarea
       color="primary"
       label="Description"
       v-model="item.description"
+      :rules="reqRules"
+      :rows="1"
     />
-    <v-switch
-      color="primary"
-      label="Require Attunement"
-      v-model="item.reqAttune"
-    ></v-switch>
-    <v-text-field
-      color="primary"
-      label="Attune Requirement"
-      v-model="item.attuneRequirements"
-    />
-    <v-select
-      color="primary"
-      label="Rarity"
-      v-model="item.rarity"
-      :items="rarities"
-    ></v-select>
-    <v-switch
-      color="primary"
-      label="Is Weapon"
-      v-model="item.isWeapon"
-    ></v-switch>
-    <v-autocomplete
-      color="primary"
-      label="Weapon Type"
-      v-model="item.weaponType"
-      :items="weaponTypes"
-    ></v-autocomplete>
+    <div class="row-container">
+      <v-switch
+        class="toggle-item"
+        color="primary"
+        label="Require Attunement"
+        v-model="item.reqAttune"
+      ></v-switch>
+      <v-text-field
+        color="primary"
+        label="Attune Requirement"
+        hint="Any additional requirements for attunement"
+        persistent-hint
+        v-model="item.attuneRequirements"
+        v-show="item.reqAttune"
+      />
+    </div>
+    <div class="row-container">
+      <v-switch
+        class="toggle-item"
+        color="primary"
+        label="Is Weapon"
+        v-model="item.isWeapon"
+      ></v-switch>
+      <v-autocomplete
+        color="primary"
+        label="Weapon Type"
+        v-model="item.weaponType"
+        :items="weaponTypes"
+        v-show="item.isWeapon"
+      ></v-autocomplete>
+    </div>
   </div>
 </template>
 
@@ -49,6 +71,7 @@ export default {
       isWeapon: false,
       weaponType: "",
     },
+    reqRules: [(value) => !!value || "Required"],
     rarities: [
       "Common",
       "Uncommon",
@@ -100,5 +123,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.row-container {
+  display: flex;
+}
+.row-container > * {
+  flex: 1;
+}
+.row-container > *:not(:first-child) {
+  margin-left: 8px;
+}
+.row-container > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.toggle-item {
+  max-width: 30%;
+}
 </style>
