@@ -11,6 +11,14 @@
       <v-select
         class="basic-input"
         color="primary"
+        label="Item Type"
+        v-model="item.itemType"
+        :items="itemTypes"
+        :rules="reqRules"
+      ></v-select>
+      <v-select
+        class="basic-input"
+        color="primary"
         label="Rarity"
         v-model="item.rarity"
         :items="rarities"
@@ -40,27 +48,29 @@
         v-show="item.reqAttune"
       />
     </div>
-    <div class="row-container">
-      <v-switch
-        class="toggle-item"
-        color="primary"
-        label="Is Weapon"
-        v-model="item.isWeapon"
-      ></v-switch>
-      <v-autocomplete
-        color="primary"
-        label="Weapon Type"
-        v-model="item.weaponType"
-        :items="weaponTypes"
-        v-show="item.isWeapon"
-      ></v-autocomplete>
-    </div>
+    <v-autocomplete
+      color="primary"
+      label="Weapon Type"
+      v-model="item.itemSubType"
+      :items="weaponTypes"
+      v-show="item.itemType === 'Weapon'"
+    ></v-autocomplete>
+    <v-autocomplete
+      color="primary"
+      label="Armour Type"
+      v-model="item.itemSubType"
+      :items="armourTypes"
+      v-show="item.itemType === 'Armour'"
+    ></v-autocomplete>
+    <StatBlock :item="item" />
   </div>
 </template>
 
 <script>
+import StatBlock from "./stat-block/StatBlock.vue";
 export default {
   name: "Item",
+  components: { StatBlock },
   data: () => ({
     item: {
       name: "",
@@ -68,8 +78,8 @@ export default {
       reqAttune: false,
       attuneRequirements: "",
       rarity: "",
-      isWeapon: false,
-      weaponType: "",
+      itemType: "",
+      itemSubType: "",
     },
     reqRules: [(value) => !!value || "Required"],
     rarities: [
@@ -79,6 +89,22 @@ export default {
       "Very Rare",
       "Legendary",
       "Artifact",
+    ],
+    itemTypes: ["Wonderous", "Armour", "Weapon"],
+    armourTypes: [
+      "Padded",
+      "Leather",
+      "Studded Leather",
+      "Hide",
+      "Chain Shirt",
+      "Scale Mail",
+      "Breastplate",
+      "Half Plate",
+      "Ring Mail",
+      "Chain Mail",
+      "Splint",
+      "Plate",
+      "Shield",
     ],
     weaponTypes: [
       "Club",
@@ -120,6 +146,14 @@ export default {
       "Net",
     ],
   }),
+  watch: {
+    "item.itemType": function (newVal, oldVal) {
+      // When the item type changes, we want to make sure the subtype gets cleared out
+      if (newVal != oldVal) {
+        this.item.itemSubType = "";
+      }
+    },
+  },
 };
 </script>
 
