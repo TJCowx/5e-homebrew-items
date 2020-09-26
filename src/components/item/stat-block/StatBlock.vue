@@ -17,7 +17,10 @@
       </span>
       <hr class="line-break" />
 
-      <div class="description">{{ item.description }}</div>
+      <markdown-it-vue-light
+        class="markdown-body description"
+        :content="item.description"
+      />
     </div>
     <StatBlockBorder />
   </div>
@@ -25,15 +28,17 @@
 
 <script>
 import StatBlockBorder from "./StatBlockBorder.vue";
+import MarkdownItVueLight from "markdown-it-vue/dist/markdown-it-vue-light.umd.min.js";
+import "markdown-it-vue/dist/markdown-it-vue-light.css";
 
 export default {
   name: "StatBlock",
   props: ["item"],
-  components: { StatBlockBorder },
+  components: { StatBlockBorder, MarkdownItVueLight },
 };
 </script>
 
-<style scoped>
+<style>
 .stat-block-wrapper {
   width: 700px;
   margin-left: auto;
@@ -72,5 +77,12 @@ export default {
   white-space: pre-wrap;
   padding-top: 8px;
   font-size: 14px;
+  line-height: 1;
+  font-family: inherit !important;
+}
+
+.markdown-body::after,
+.markdown-body::before {
+  display: none;
 }
 </style>
