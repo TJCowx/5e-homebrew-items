@@ -39,10 +39,21 @@ export default {
 </script>
 
 <style>
-.item-container {
-  width: 80%;
-  margin-top: 16px;
-  margin-left: auto;
-  margin-right: auto;
+@media screen and (max-width: 767px) {
+  .item-container {
+    width: 90%;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .item-container {
+    width: 80%;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 </style>

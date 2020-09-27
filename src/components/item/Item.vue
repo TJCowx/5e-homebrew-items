@@ -2,14 +2,14 @@
   <div>
     <div class="row-container">
       <v-text-field
-        class="basic-input"
+        class="name-input"
         color="primary"
         label="Name"
         v-model="item.name"
         :rules="reqRules"
       />
       <v-select
-        class="basic-input"
+        class="type-input"
         color="primary"
         label="Item Type"
         v-model="item.itemType"
@@ -18,7 +18,7 @@
         :rules="reqRules"
       ></v-select>
       <v-select
-        class="basic-input"
+        class="type-input"
         color="primary"
         label="Rarity"
         v-model="item.rarity"
@@ -68,6 +68,14 @@
     <div class="action-container">
       <div class="actions-left">
         <v-btn color="primary" @click="loadExample" dark>Load Example</v-btn>
+        <v-btn
+          color="primary"
+          style="margin-left: 8px"
+          @click="exportAsImage"
+          dark
+        >
+          Save As Image
+        </v-btn>
       </div>
       <div class="actions-right">
         <v-btn color="primary" @click="importConfig" dark>Import</v-btn>
@@ -85,16 +93,11 @@
           dark
           >Export</v-btn
         >
-        <v-btn
-          color="primary"
-          style="margin-left: 8px"
-          @click="exportAsImage"
-          dark
-          >Save As Image</v-btn
-        >
       </div>
     </div>
-    <StatBlock id="statBlock" ref="statBlock" :item="item" />
+    <div class="stat-block-container">
+      <StatBlock id="statBlock" :item="item" />
+    </div>
   </div>
 </template>
 
@@ -242,6 +245,7 @@ export default {
 
       this.item.itemSubType = "Rapier";
     },
+    /** Exports the stat block into an image that downloads */
     exportAsImage() {
       const el = document.querySelector("#image-container");
       html2canvas(el, {
@@ -271,35 +275,72 @@ export default {
 </script>
 
 <style scoped>
-.row-container {
-  display: flex;
-}
-.row-container > * {
-  flex: 1;
-}
-.row-container > *:not(:first-child) {
-  margin-left: 8px;
-}
-.row-container > *:not(:last-child) {
-  margin-right: 8px;
+/** For smaller screens */
+@media screen and (max-width: 766px) {
+  .stat-block-container {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .name-input {
+    width: 100%;
+  }
+
+  .action-container {
+    margin-bottom: 16px;
+  }
+
+  .actions-left {
+    margin: 8px 0;
+  }
+
+  .toggle-item {
+    max-width: 100%;
+  }
 }
 
-.toggle-item {
-  max-width: 30%;
-}
+/** For larger screens (landscape mobile and up) */
+@media screen and (min-width: 768px) {
+  #stat-block {
+    overflow: hidden;
+  }
 
-.action-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 16px 0;
-}
-.actions-left {
-  display: flex;
-  justify-content: flex-start;
-}
-.actions-right {
-  display: flex;
-  justify-content: flex-end;
+  .row-container {
+    display: flex;
+  }
+  .row-container > * {
+    flex: 1;
+  }
+  .row-container > *:not(:first-child) {
+    margin-left: 8px;
+  }
+  .row-container > *:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  .name-input {
+    width: 30%;
+  }
+
+  .actions-left {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .actions-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .action-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 16px 0;
+  }
+
+  .toggle-item {
+    max-width: 30%;
+  }
 }
 </style>
