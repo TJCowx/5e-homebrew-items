@@ -3,11 +3,13 @@
     <v-app>
       <div>
         <AppBar v-on:toggle-drawer="updateDrawer" />
+        <!-- <v-theme-provider> -->
         <v-navigation-drawer v-model="openDrawer" absolute temporary>
           <NavList />
           <v-footer absolute> Version {{ version }} </v-footer>
         </v-navigation-drawer>
         <Item class="item-container" />
+        <!-- </v-theme-provider> -->
       </div>
     </v-app>
   </div>

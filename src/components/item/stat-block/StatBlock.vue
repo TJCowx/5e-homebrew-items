@@ -67,6 +67,7 @@ export default {
 }
 
 .subtext {
+  color: black;
   font-size: 12px;
   font-style: italic;
 }

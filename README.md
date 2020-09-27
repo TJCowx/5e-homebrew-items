@@ -2,6 +2,19 @@
 A personal project that makes creating magic items and exporting them a lot simpler for 5th Edition Dungeons and Dragons Dungeon masters.
 
 
+# Versions
+
+## 1.1.0
+- Added Dark Theme
+
+## 1.0.1
+- Added mobile responsiveness
+
+## 1.0.0
+- Released the app to the service
+- Can now create and save items
+
+
 ## Project setup
 ```
 npm install

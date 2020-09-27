@@ -3,14 +3,14 @@
     <div class="row-container">
       <v-text-field
         class="name-input"
-        color="primary"
+        color="accent"
         label="Name"
         v-model="item.name"
         :rules="reqRules"
       />
       <v-select
         class="type-input"
-        color="primary"
+        color="accent"
         label="Item Type"
         v-model="item.itemType"
         @change="changeItemType"
@@ -19,7 +19,7 @@
       ></v-select>
       <v-select
         class="type-input"
-        color="primary"
+        color="accent"
         label="Rarity"
         v-model="item.rarity"
         :items="rarities"
@@ -27,7 +27,7 @@
       ></v-select>
     </div>
     <v-textarea
-      color="primary"
+      color="accent"
       label="Description"
       v-model="item.description"
       :hint="'Markdown Syntax: **Bold**, ~~Strikethrough~~, *Italics*, > Quote, - Bullet List'"
@@ -38,12 +38,13 @@
     <div class="row-container">
       <v-switch
         class="toggle-item"
-        color="primary"
+        color="accent"
         label="Require Attunement"
         v-model="item.reqAttune"
+        hide-details
       ></v-switch>
       <v-text-field
-        color="primary"
+        color="accent"
         label="Attune Requirement"
         hint="Any additional requirements for attunement"
         persistent-hint
@@ -52,14 +53,14 @@
       />
     </div>
     <v-autocomplete
-      color="primary"
+      color="accent"
       label="Weapon Type"
       v-model="item.itemSubType"
       :items="weaponTypes"
       v-show="item.itemType === 'Weapon'"
     ></v-autocomplete>
     <v-autocomplete
-      color="primary"
+      color="accent"
       label="Armour Type"
       v-model="item.itemSubType"
       :items="armourTypes"
