@@ -1,4 +1,6 @@
 # 5e-homebrew-items
+A personal project that makes creating magic items and exporting them a lot simpler for 5th Edition Dungeons and Dragons Dungeon masters.
+
 
 ## Project setup
 ```
