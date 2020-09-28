@@ -248,6 +248,7 @@ export default {
     },
     /** Exports the stat block into an image that downloads */
     exportAsImage() {
+      // Fix to an image getting cut off, weird but with html2canvas
       window.scrollTo(0, 0);
 
       const el = document.querySelector("#image-container");
