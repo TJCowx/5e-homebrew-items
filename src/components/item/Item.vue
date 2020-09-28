@@ -248,6 +248,8 @@ export default {
     },
     /** Exports the stat block into an image that downloads */
     exportAsImage() {
+      window.scrollTo(0, 0);
+
       const el = document.querySelector("#image-container");
       html2canvas(el, {
         backgroundColor: null,
