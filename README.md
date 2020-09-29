@@ -4,6 +4,9 @@ A personal project that makes creating magic items and exporting them a lot simp
 
 # Versions
 
+## 1.1.2
+- Added a hover over a info box and it shows dungeon master guide suggestions
+
 ## 1.1.1
 - Fixed an issue where the image export could be cut off
 
