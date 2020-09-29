@@ -6,7 +6,9 @@
       <v-toolbar-title>5e Homebrew Items</v-toolbar-title>
     </div>
     <v-spacer></v-spacer>
-    <v-btn color="#004d00" depressed @click="switchTheme"> Toggle Theme </v-btn>
+    <v-btn color="#004d00" depressed @click="switchTheme">
+      <v-icon> invert_colors </v-icon>
+    </v-btn>
   </v-app-bar>
 </template>
 
