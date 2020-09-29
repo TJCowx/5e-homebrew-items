@@ -24,7 +24,19 @@
         v-model="item.rarity"
         :items="rarities"
         :rules="reqRules"
-      ></v-select>
+      >
+        <v-tooltip bottom slot="append-outer">
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon v-on="on" v-attrs="attrs">info</v-icon>
+          </template>
+          <div>
+            <img
+              src="../../assets/images/rarity-suggestion.png"
+              alt="Suggested Bonus and Spell Level"
+            />
+          </div>
+        </v-tooltip>
+      </v-select>
     </div>
     <v-textarea
       color="accent"

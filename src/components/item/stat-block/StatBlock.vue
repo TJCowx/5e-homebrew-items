@@ -9,7 +9,7 @@
           <span v-if="item.itemSubType.length > 0">
             ({{ item.itemSubType }})
           </span>
-          , {{ item.rarity }}
+          <span v-if="item.itemType.length > 0">,</span> {{ item.rarity }}
           <span v-if="item.reqAttune">
             (requires attunement<span v-if="item.attuneRequirements.length > 0">
               {{ item.attuneRequirements }}</span
